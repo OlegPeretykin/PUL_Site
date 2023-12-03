@@ -13,10 +13,14 @@
   <link href="/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
   <link rel="icon" type="image/x-icon" href="favicon-32x32.png" />
+  <script src="/js/calc.js"></script>
+  <script src="/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
 
 </head>
 
-<body>
+<body onload="calc()">
   <nav id="section_nav_panel" class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container">
       <a class="navbar-brand" href="/">ПрофУчет |</a>
@@ -34,6 +38,9 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#section_consultations">Консультации</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#calc_main">Калькулятор</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#section_links">Наши контакты</a>
@@ -358,6 +365,113 @@
         <a href="#section_nav_panel" class="btn btn-primary">К началу</a>
       </div>
 
+      <!-- Калькулятор стоимости услуг -->
+      <h2 class="text-center my-5">Калькулятор примерной месячной стоимости бухгалтерского сопровождения</h2>
+      <div class="container my-5" id="calc_main">
+
+        <!-- Блок выбора типа хозяйствующего субьекта -->
+        <select onchange="calc()" id="type_of_bussines_entity">
+          <option value="0">Индивидуальный предприниматель</option>
+          <option value="1">Общество с ограниченной ответственностью</option>
+        </select><br />
+
+        <!-- Блок выбора системы налогообложения -->
+        <select onchange="calc()" id="type_of_taxation_system">
+          <option value="1">УСНО 6% / ПАТЕНТ (ИП)</option>
+          <option value="2">УСН 15%</option>
+          <option value="3">ОСНО</option>
+        </select><br />
+
+        <!-- Блок выбора количества документов/операций -->
+        <select onchange="calc()" id="quantity_of_document">
+          <option value="1">от 1 до 5 </option>
+          <option value="2">от 6 до 15 </option>
+          <option value="3">от 16 до 30 </option>
+          <option value="4">от 31 до 60 </option>
+          <option value="5">от 61 до 90 </option>
+          <option value="6">от 91 до 120 </option>
+        </select><span> операций (документов) в месяц</span><br />
+
+        <!-- Блок выбора количества первичных документов -->
+        <select onchange="calc()" id="quantity_of_primary_accounting_document">
+          <option value="0">0</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+          <option value="300">300</option>
+        </select><span> изготовление документов первичного бухгалтерского учета в месяц</span><br />
+
+        <!-- Блок выбора количества работающих граждан РФ -->
+        <select onchange="calc()" id="number_of_russian_citizens">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="30">30</option>
+        </select><span> граждан РФ</span><br />
+
+        <!-- Блок выбора количества работающих иностранных граждан -->
+        <select onchange="calc()" id="number_of_foreign_citizens">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="30">30</option>
+        </select><span> иностранных граждан</span><br /><br>
+
+        <input type="checkbox" onchange="calc()" id="is_varios_VAT" />
+        <label for="is_varios_VAT"> применяются различные ставки НДС</label> <br>
+
+        <input type="checkbox" onchange="calc()" id="is_leasing" />
+        <label for="is_leasing"> лизинг</label> <br>
+
+        <input type="checkbox" onchange="calc()" id="is_transactions_with_securities" />
+        <label for="is_transactions_with_securities"> операции с ценными бумагами</label> <br>
+
+        <input type="checkbox" onchange="calc()" id="is_2_marketplaces" />
+        <label for="is_2_marketplaces"> маркетплейсы, до двух</label> <br>
+
+        <input type="checkbox" onchange="calc()" id="is_over_2_marketplaces" />
+        <label for="is_over_2_marketplaces"> маркетплейсы, больше двух</label> <br>
+
+        <input type="checkbox" onchange="calc()" id="is_over_10_product" />
+        <label for="is_over_10_product"> больше 10 товаров в номенклатуре</label> <br>
+
+        <input type="checkbox" onchange="calc()" id="is_universalism" />
+        <label for="is_universalism"> наличие разных видов деятельности (например торговля и производство), разные
+          системы налогообложения. Наличие производства.</label> <br>
+
+        <input type="checkbox" onchange="calc()" id="is_alcohl" />
+        <label for="is_alcohl"> операции с алкоголем</label> <br>
+
+        <input type="checkbox" onchange="calc()" id="is_branches" />
+        <label for="is_branches"> наличие филиалов</label> <br>
+
+        <input type="checkbox" onchange="calc()" id="is_export_import_currency" />
+        <label for="is_export_import_currency"> экспорт, импорт, операции с иностранной валютой</label> <br>
+
+        <input type="checkbox" onchange="calc()" id="is_foreign_economic_activity" />
+        <label for="is_foreign_economic_activity"> ВЭД (мы отправляем отчеты в банк)</label> <br>
+        <br>
+        <div>Полная стоимость месячного обслуживания: <span id="result">0</span> руб.</div>
+        <br>
+
+        <!-- Disclaimer -->
+        <div class="my-3">
+          Внимание! <br>Цены устанавливаются индивидуально для каждого клиента. Приведенные тут цены имеют
+          информационный
+          характер и не являются публичной офертой.
+        </div>
+        <!-- ---- -->
+
+        <a href="#section_nav_panel" class="btn btn-primary">К началу</a>
+
+      </div>
+
+      <!-- Контакты и расписание работы -->
       <div id="section_links" class="container text-left my-5">
         <h2 class="text-center">О нас и как с нами связаться ...</h2>
         <p>
@@ -384,9 +498,6 @@
         <a href="#section_nav_panel" class="btn btn-primary">К началу</a>
       </div>
 
-      <script src="/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
 </body>
 
 </html>
